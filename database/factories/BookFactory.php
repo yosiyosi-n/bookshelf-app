@@ -18,14 +18,13 @@ class BookFactory extends Factory
     public function definition(): array
     {
         return [
-            // 既存のユーザーからランダムに1人、登録者として紐付けます
             'user_id' => User::inRandomOrder()->first()?->id ?? User::factory(),
-            'title' => fake()->realText(15), // 15文字程度のリアルな本のタイトル
-            'author' => fake()->name(),      // 著者名
-            'isbn' => fake()->isbn13(),      // 本物の形式に近い13桁のISBNコード
-            'published_date' => fake()->date(), // 出版日
-            'image_url' => fake()->imageUrl(640, 480, 'books', true), // テスト用の画像URL
-            'description' => fake()->realText(100), // 100文字程度のあらすじ・解説
+            'title' => fake()->realText(15),
+            'author' => fake()->name(),
+            'isbn' => fake()->isbn13(),
+            'published_date' => fake()->date(),
+            'image_url' => fake()->imageUrl(640, 480, 'books', true),
+            'description' => fake()->realText(100),
         ];
     }
 }

@@ -11,7 +11,7 @@ class Genre extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name', // ジャンル名（小説、ビジネス書など）
+        'name',
     ];
 
     /**

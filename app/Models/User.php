@@ -63,7 +63,6 @@ class User extends Authenticatable
 
     /**
      * このユーザーがお気に入り登録している書籍一覧（多対多）
-     * ※詳細画面の「favoriteBooks」という記述に完全に名前を合わせます
      */
     public function favoriteBooks(): BelongsToMany
     {
