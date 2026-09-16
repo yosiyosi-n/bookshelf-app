@@ -29,6 +29,13 @@ class BookController extends Controller
      */
     public function show(Book $book)
     {
-        // 開発中のため、一旦一覧に戻るか真っ白な画面になります
+        // 先日共有いただいた show.blade.php が必要としているデータをすべてロード（読込）する
+        // - genres: この本が持つ複数ジャンル
+        // - reviews.user: 投稿された32件のレビューと、それぞれを書いたユーザー名
+        // - reviews.likedByUsers: 各レビューの「いいね」を押したユーザー（カウント用）
+        $book->load(['genres', 'reviews.user', 'reviews.likedByUsers']);
+
+        // 確定しているフロントエンドのビュー（books/show.blade.php）にデータを渡す
+        return view('books.show', compact('book'));
     }
 }

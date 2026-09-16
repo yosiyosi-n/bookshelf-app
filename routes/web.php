@@ -26,6 +26,15 @@ Route::get('/genres/{genre}/edit', function () { return 'ジャンル編集（�
 Route::put('/genres/{genre}', function () { return 'ジャンル更新（開発中）'; })->name('genres.update');
 Route::delete('/genres/{genre}', function () { return 'ジャンル削除（開発中）'; })->name('genres.destroy');
 
+Route::get('/reviews', function () { return 'レビュー一覧（開発中）'; })->name('reviews.index');
+Route::get('/reviews/create', function () { return 'レビュー作成（開発中）'; })->name('reviews.create');
+Route::post('/reviews', function () { return 'レビュー保存（開発中）'; })->name('reviews.store');
+Route::get('/reviews/{review}', function () { return 'レビュー詳細（開発中）'; })->name('reviews.show');
+Route::get('/reviews/{review}/edit', function () { return 'レビュー編集（開発中）'; })->name('reviews.edit');
+Route::put('/reviews/{review}', function () { return 'レビュー更新（開発中）'; })->name('reviews.update');
+Route::delete('/reviews/{review}', function () { return 'レビュー削除（開発中）'; })->name('reviews.destroy');
+Route::post('/reviews/{review}/like', function () { return 'いいね（開発中）'; })->name('reviews.like');
+
 Route::middleware('auth')->group(function () {
     // Route::resource('books', BookController::class)->except(['index', 'show']);
 
