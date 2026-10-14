@@ -9,18 +9,28 @@ use Illuminate\Support\Facades\Auth;
 class FavoriteController extends Controller
 {
     /**
-     * お気に入り状態の切り替え（トグル処理）
+     * お気に入り書籍一覧画面の表示（仕様書：GET /favorites）
+     */
+    public function index()
+    {
+        $user = Auth::user();
+
+        $favoriteBooks = $user->favoriteBooks()
+            ->with('genres')
+            ->withAvg('reviews', 'rating')
+            ->latest('book_user.created_at')
+            ->paginate(10);
+
+        return view('favorites.index', compact('favoriteBooks'));
+    }
+
+    /**
+     * お気に入り状態の切り替え
      */
     public function toggle(Book $book)
     {
-        // 1. 現在ログインしているユーザーを取得
         $user = Auth::user();
-
-        // 2. toggle() メソッドを使い、すでに登録されていれば解除、なければ登録を1行で実行
-        // - userモデルの favoriteBooks() リレーション（多対多）経由で中間テーブルを操作します
         $user->favoriteBooks()->toggle($book->id);
-
-        // 3. 元の画面（書籍詳細画面など）にスムーズに戻す
         return back();
     }
 }
