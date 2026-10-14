@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\BookController;
-// use App\Http\Controllers\FavoriteController;
+use App\Http\Controllers\FavoriteController;
 // use App\Http\Controllers\GenreController;
 // use App\Http\Controllers\RankingController;
 // use App\Http\Controllers\ReviewController;
@@ -17,7 +17,9 @@ Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show')
 Route::get('/books/create', function () { return '書籍登録画面（開発中）'; })->name('books.create');
 Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 Route::get('/favorites', function () { return 'お気に入り画面（開発中）'; })->name('favorites.index');
-Route::post('/favorites/{book}/toggle', function () { return 'お気に入りトグル（開発中）'; })->name('favorites.toggle');
+
+Route::post('/favorites/{book}/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
+
 Route::get('/genres', function () { return 'ジャンル一覧（開発中）'; })->name('genres.index');
 Route::get('/genres/create', function () { return 'ジャンル作成（開発中）'; })->name('genres.create');
 Route::post('/genres', function () { return 'ジャンル保存（開発中）'; })->name('genres.store');
