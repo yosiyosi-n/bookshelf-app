@@ -15,13 +15,13 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
 
-        $favoriteBooks = $user->favoriteBooks()
+        $books = $user->favoriteBooks()
             ->with('genres')
             ->withAvg('reviews', 'rating')
             ->latest('book_user.created_at')
             ->paginate(10);
 
-        return view('favorites.index', compact('favoriteBooks'));
+        return view('favorites.index', compact('books'));
     }
 
     /**

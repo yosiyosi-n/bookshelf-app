@@ -16,7 +16,7 @@ Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show')
 
 Route::get('/books/create', function () { return '書籍登録画面（開発中）'; })->name('books.create');
 
-// Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
+Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 // Route::post('/favorites/{book}/toggle', [FavoriteController::class, 'toggle'])->name('favorites.toggle');
 Route::middleware('auth')->group(function () {
     // ★ 仕様書通り：認証時はお気に入り一覧を表示し、未認証時は自動で /login にリダイレクトされます
