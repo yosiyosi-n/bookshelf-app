@@ -16,12 +16,10 @@ class UpdateGenreRequest extends FormRequest
      */
     public function rules(): array
     {
-        // ルートパラメータから現在編集中のジャンルデータを取得
         $genre = $this->route('genre');
         $genreId = is_object($genre) ? $genre->id : $genre;
 
         return [
-            // uniqueの第3引数に自身のIDを渡すことで、自分自身の名前のまま更新しても重複エラーになりません
             'name' => ['required', 'string', 'max:255', 'unique:genres,name,'.$genreId],
         ];
     }

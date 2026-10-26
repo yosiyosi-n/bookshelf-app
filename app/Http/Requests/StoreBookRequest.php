@@ -17,14 +17,14 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title' => ['required', 'string', 'max:255'], // 必須
-            'author' => ['required', 'string', 'max:255'], // 必須
-            'isbn' => ['required', 'digits:13', 'unique:books,isbn'], // 13桁の数値、かつ重複不可
-            'published_date' => ['required', 'date'], // 有効な日付
+            'title' => ['required', 'string', 'max:255'],
+            'author' => ['required', 'string', 'max:255'],
+            'isbn' => ['required', 'digits:13', 'unique:books,isbn'],
+            'published_date' => ['required', 'date'],
             'description' => ['nullable', 'string', 'max:2000'],
-            'image_url' => ['nullable', 'url'], // 指定された場合はURL形式
-            'genres' => ['required', 'array', 'min:1'], // ジャンルは1つ以上選択されていること
-            'genres.*' => ['integer', 'exists:genres,id'], // 選択されたジャンルがDBに存在すること
+            'image_url' => ['nullable', 'url'],
+            'genres' => ['required', 'array', 'min:1'],
+            'genres.*' => ['integer', 'exists:genres,id'],
         ];
     }
 

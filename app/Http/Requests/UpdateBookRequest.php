@@ -23,7 +23,6 @@ class UpdateBookRequest extends FormRequest
         return [
             'title' => ['required', 'string', 'max:255'],
             'author' => ['required', 'string', 'max:255'],
-            // 一意性チェック(unique)で、自分自身の書籍IDを除外する指示を追記
             'isbn' => ['required', 'digits:13', 'unique:books,isbn,'.$bookId],
             'published_date' => ['required', 'date'],
             'description' => ['nullable', 'string', 'max:2000'],

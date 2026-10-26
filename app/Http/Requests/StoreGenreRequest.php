@@ -17,7 +17,7 @@ class StoreGenreRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255', 'unique:genres,name'], // 必須かつ重複不可
+            'name' => ['required', 'string', 'max:255', 'unique:genres,name'],
         ];
     }
 
