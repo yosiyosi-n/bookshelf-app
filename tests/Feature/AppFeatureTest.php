@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Book;
-use App\Models\User;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -25,7 +25,7 @@ class AppFeatureTest extends TestCase
         Review::create([
             'book_id' => $book->id,
             'user_id' => $user->id,
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => '最高！',
         ]);
 
@@ -43,9 +43,9 @@ class AppFeatureTest extends TestCase
     public function test_user_registration_validation_and_creation_works(): void
     {
         $registerData = [
-            'name'                  => '新規テストユーザー',
-            'email'                 => 'newuser@example.com',
-            'password'              => 'password123',
+            'name' => '新規テストユーザー',
+            'email' => 'newuser@example.com',
+            'password' => 'password123',
             'password_confirmation' => 'password123',
         ];
 
@@ -54,7 +54,7 @@ class AppFeatureTest extends TestCase
 
         // データベースにユーザーが追加されていることを検証
         $this->assertDatabaseHas('users', [
-            'name'  => '新規テストユーザー',
+            'name' => '新規テストユーザー',
             'email' => 'newuser@example.com',
         ]);
         $response->assertRedirect();

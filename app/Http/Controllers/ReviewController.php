@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Review;
+use App\Http\Requests\LikeReviewRequest;
 use App\Http\Requests\StoreReviewRequest;
 use App\Http\Requests\UpdateReviewRequest;
-use App\Http\Requests\LikeReviewRequest; // 👈 ★【追加】作成したLikeReviewRequestを読み込み
+use App\Models\Review; // 👈 ★【追加】作成したLikeReviewRequestを読み込み
 use Illuminate\Support\Facades\Auth;
 
 class ReviewController extends Controller
@@ -21,7 +20,7 @@ class ReviewController extends Controller
         Review::create([
             'book_id' => $validated['book_id'],
             'user_id' => Auth::id(),
-            'rating'  => $validated['rating'],
+            'rating' => $validated['rating'],
             'comment' => $validated['comment'],
         ]);
 
@@ -48,7 +47,7 @@ class ReviewController extends Controller
         $validated = $request->validated();
 
         $review->update([
-            'rating'  => $validated['rating'],
+            'rating' => $validated['rating'],
             'comment' => $validated['comment'],
         ]);
 

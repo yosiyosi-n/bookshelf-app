@@ -4,7 +4,6 @@ namespace Database\Seeders;
 
 use App\Models\Review;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class ReviewLikeSeeder extends Seeder
@@ -22,10 +21,10 @@ class ReviewLikeSeeder extends Seeder
         }
 
         foreach ($reviews as $review) {
-            $potentialLikers = $users->where('id','!=',$review->user_id);
+            $potentialLikers = $users->where('id', '!=', $review->user_id);
 
             if ($potentialLikers->isNotEmpty()) {
-                $likeCount = rand(0,min(3,$potentialLikers->count()));
+                $likeCount = rand(0, min(3, $potentialLikers->count()));
 
                 if ($likeCount > 0) {
                     $likerIds = $potentialLikers->random($likeCount)->pluck('id')->toArray();

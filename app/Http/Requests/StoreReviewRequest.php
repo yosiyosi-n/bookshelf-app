@@ -21,7 +21,7 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'book_id' => ['required', 'integer', 'exists:books,id'],
-            'rating'  => ['required', 'integer', 'min:1', 'max:5'], // 1〜5の範囲
+            'rating' => ['required', 'integer', 'min:1', 'max:5'], // 1〜5の範囲
             'comment' => ['required', 'string', 'max:1000'], // 1000文字以内
         ];
     }
@@ -33,13 +33,13 @@ class StoreReviewRequest extends FormRequest
     {
         return [
             'book_id.required' => '対象の書籍が指定されていません。',
-            'book_id.exists'   => '指定された書籍は存在しません。',
-            'rating.required'  => '評価（星の数）を選択してください。',
-            'rating.integer'   => '評価は数値で入力してください。',
-            'rating.min'       => '評価は星1以上で指定してください。',
-            'rating.max'       => '評価は星5以下で指定してください。',
+            'book_id.exists' => '指定された書籍は存在しません。',
+            'rating.required' => '評価（星の数）を選択してください。',
+            'rating.integer' => '評価は数値で入力してください。',
+            'rating.min' => '評価は星1以上で指定してください。',
+            'rating.max' => '評価は星5以下で指定してください。',
             'comment.required' => 'コメントを入力してください。',
-            'comment.max'      => 'コメントは1000文字以内で入力してください。',
+            'comment.max' => 'コメントは1000文字以内で入力してください。',
         ];
     }
 }

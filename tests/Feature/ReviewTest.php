@@ -2,9 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Models\Book;
 use App\Models\Review;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -22,7 +22,7 @@ class ReviewTest extends TestCase
 
         $formData = [
             'book_id' => $book->id,
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => '最高の一冊です。',
         ];
 
@@ -31,7 +31,7 @@ class ReviewTest extends TestCase
         $this->assertDatabaseHas('reviews', [
             'book_id' => $book->id,
             'user_id' => $user->id,
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => '最高の一冊です。',
         ]);
         $response->assertStatus(302);
@@ -45,17 +45,17 @@ class ReviewTest extends TestCase
         $user1 = User::factory()->create();
         $user2 = User::factory()->create(); // レビュー投稿者
         $book = Book::factory()->create(['user_id' => $user2->id]);
-        
+
         $review = Review::create([
             'book_id' => $book->id,
             'user_id' => $user2->id,
-            'rating'  => 4,
+            'rating' => 4,
             'comment' => '他人のコメント',
         ]);
 
         // user1がログインしてuser2のレビューにいいねする
         $response = $this->actingAs($user1)->post(route('reviews.like', $review));
-        
+
         $this->assertDatabaseHas('review_user', ['user_id' => $user1->id, 'review_id' => $review->id]);
         $response->assertStatus(302);
     }
@@ -67,17 +67,17 @@ class ReviewTest extends TestCase
     {
         $user = User::factory()->create();
         $book = Book::factory()->create(['user_id' => $user->id]);
-        
+
         $review = Review::create([
             'book_id' => $book->id,
             'user_id' => $user->id, // 自分が投稿したレビュー
-            'rating'  => 5,
+            'rating' => 5,
             'comment' => '自分のコメント',
         ]);
 
         // 自分のレビューにいいねを試みる
         $response = $this->actingAs($user)->post(route('reviews.like', $review));
-        
+
         // 403 Forbidden（この行為は許可されていません。）が返ってくることを検証
         $response->assertStatus(403);
     }

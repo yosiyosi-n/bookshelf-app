@@ -22,7 +22,7 @@ class UpdateGenreRequest extends FormRequest
 
         return [
             // uniqueの第3引数に自身のIDを渡すことで、自分自身の名前のまま更新しても重複エラーになりません
-            'name' => ['required', 'string', 'max:255', 'unique:genres,name,' . $genreId],
+            'name' => ['required', 'string', 'max:255', 'unique:genres,name,'.$genreId],
         ];
     }
 
@@ -33,8 +33,8 @@ class UpdateGenreRequest extends FormRequest
     {
         return [
             'name.required' => 'ジャンル名を入力してください。',
-            'name.unique'   => 'このジャンル名は既に他のジャンルで使用されています。',
-            'name.max'      => 'ジャンル名は255文字以内で入力してください。',
+            'name.unique' => 'このジャンル名は既に他のジャンルで使用されています。',
+            'name.max' => 'ジャンル名は255文字以内で入力してください。',
         ];
     }
 }

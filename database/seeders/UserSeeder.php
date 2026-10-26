@@ -42,7 +42,7 @@ class UserSeeder extends Seeder
             ],
         ];
 
-        foreach($fixedUsers as $userData) {
+        foreach ($fixedUsers as $userData) {
             User::firstOrCreate(
                 ['email' => $userData['email']],
                 $userData

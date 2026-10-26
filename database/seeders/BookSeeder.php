@@ -5,7 +5,6 @@ namespace Database\Seeders;
 use App\Models\Book;
 use App\Models\Genre;
 use App\Models\User;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
 class BookSeeder extends Seeder
@@ -16,7 +15,7 @@ class BookSeeder extends Seeder
     public function run(): void
     {
         $user = User::first();
-        if(!$user) {
+        if (! $user) {
             return;
         }
 
@@ -128,9 +127,9 @@ class BookSeeder extends Seeder
 
             $genreNames = array_map('trim', explode(',', $bookDate['genre']));
 
-            $genreIds = Genre::whereIn('name',$genreNames)->pluck('id')->toArray();
+            $genreIds = Genre::whereIn('name', $genreNames)->pluck('id')->toArray();
 
-            if (!empty($genreIds)) {
+            if (! empty($genreIds)) {
                 $book->genres()->sync($genreIds);
             }
         }

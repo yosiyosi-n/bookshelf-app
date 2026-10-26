@@ -2,8 +2,8 @@
 
 namespace Tests\Feature;
 
-use App\Models\User;
 use App\Models\Book;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -18,7 +18,7 @@ class FavoriteTest extends TestCase
     {
         $user = User::factory()->create();
         $book = Book::factory()->create(['user_id' => $user->id, 'title' => 'お気に入りの本']);
-        
+
         // お気に入り中間テーブルに紐付け
         $user->favoriteBooks()->attach($book->id);
 

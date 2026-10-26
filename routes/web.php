@@ -2,9 +2,9 @@
 
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\FavoriteController;
-use App\Http\Controllers\ReviewController;
 use App\Http\Controllers\GenreController;
 use App\Http\Controllers\RankingController;
+use App\Http\Controllers\ReviewController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -36,12 +36,19 @@ Route::middleware('auth')->group(function () {
     Route::post('/reviews/{review}/like', [ReviewController::class, 'like'])->name('reviews.like');
 
     // レビュー用の一時仮定義
-    Route::get('/reviews', function () { return 'レビュー一覧'; })->name('reviews.index');
-    Route::get('/reviews/create', function () { return 'レビュー作成'; })->name('reviews.create');
-    Route::get('/reviews/{review}', function () { return 'レビュー詳細'; })->name('reviews.show');
-    Route::delete('/reviews/{review}', function () { return 'レビュー削除'; })->name('reviews.destroy');
+    Route::get('/reviews', function () {
+        return 'レビュー一覧';
+    })->name('reviews.index');
+    Route::get('/reviews/create', function () {
+        return 'レビュー作成';
+    })->name('reviews.create');
+    Route::get('/reviews/{review}', function () {
+        return 'レビュー詳細';
+    })->name('reviews.show');
+    Route::delete('/reviews/{review}', function () {
+        return 'レビュー削除';
+    })->name('reviews.destroy');
 });
-
 
 // 3. ログインなしでも見られる書籍ルート（詳細）
 Route::get('/books/{book}', [BookController::class, 'show'])->name('books.show');

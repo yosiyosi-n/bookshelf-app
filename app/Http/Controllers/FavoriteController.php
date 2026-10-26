@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Models\Book;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
 class FavoriteController extends Controller
@@ -31,6 +30,7 @@ class FavoriteController extends Controller
     {
         $user = Auth::user();
         $user->favoriteBooks()->toggle($book->id);
+
         return back();
     }
 }

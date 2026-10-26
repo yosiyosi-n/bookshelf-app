@@ -2,10 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Genre;
-use App\Http\Requests\StoreGenreRequest;  // 👈 先ほど作成したFormRequestを読み込み
-use App\Http\Requests\UpdateGenreRequest; // 👈 先ほど作成したFormRequestを読み込み
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreGenreRequest;
+use App\Http\Requests\UpdateGenreRequest;  // 👈 先ほど作成したFormRequestを読み込み
+use App\Models\Genre; // 👈 先ほど作成したFormRequestを読み込み
 
 class GenreController extends Controller
 {
@@ -15,6 +14,7 @@ class GenreController extends Controller
     public function index()
     {
         $genres = Genre::all();
+
         return view('genres.index', compact('genres'));
     }
 

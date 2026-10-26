@@ -3,8 +3,8 @@
 namespace Tests\Feature\Api\v1;
 
 use App\Models\Book;
-use App\Models\User;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -23,7 +23,7 @@ class BookApiTest extends TestCase
         $response = $this->getJson('/api/v1/books');
 
         $response->assertStatus(200)
-                 ->assertJsonFragment(['title' => 'APIテスト本']);
+            ->assertJsonFragment(['title' => 'APIテスト本']);
     }
 
     /**
@@ -37,7 +37,7 @@ class BookApiTest extends TestCase
         $response = $this->getJson("/api/v1/books/{$book->id}");
 
         $response->assertStatus(200)
-                 ->assertJsonFragment(['title' => 'API詳細本']);
+            ->assertJsonFragment(['title' => 'API詳細本']);
     }
 
     /**
@@ -49,11 +49,11 @@ class BookApiTest extends TestCase
         $genre = Genre::factory()->create();
 
         $formData = [
-            'title'          => 'API新規本',
-            'author'         => 'API著者',
-            'isbn'           => '9784999999999',
+            'title' => 'API新規本',
+            'author' => 'API著者',
+            'isbn' => '9784999999999',
             'published_date' => '2026-01-01',
-            'genres'         => [$genre->id],
+            'genres' => [$genre->id],
         ];
 
         $response = $this->postJson('/api/v1/books', $formData);
@@ -72,11 +72,11 @@ class BookApiTest extends TestCase
         $book = Book::factory()->create(['user_id' => $user->id, 'isbn' => '9784123456789']);
 
         $updateData = [
-            'title'          => 'API更新本',
-            'author'         => 'API更新著者',
-            'isbn'           => '9784123456789',
+            'title' => 'API更新本',
+            'author' => 'API更新著者',
+            'isbn' => '9784123456789',
             'published_date' => '2026-01-01',
-            'genres'         => [$genre->id],
+            'genres' => [$genre->id],
         ];
 
         $response = $this->putJson("/api/v1/books/{$book->id}", $updateData);

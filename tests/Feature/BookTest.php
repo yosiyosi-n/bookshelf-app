@@ -3,8 +3,8 @@
 namespace Tests\Feature;
 
 use App\Models\Book;
-use App\Models\User;
 use App\Models\Genre;
+use App\Models\User;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Tests\TestCase;
 
@@ -60,17 +60,17 @@ class BookTest extends TestCase
 
         // ★複雑なバリデーションエラーを100%回避するため、テスト内で直接Bookモデルを作成・保存してリダイレクトをシミュレートします
         $book = Book::create([
-            'user_id'        => $user->id,
-            'title'          => '新規テスト本',
-            'author'         => '新規テスト著者',
-            'isbn'           => '9784000000000',
+            'user_id' => $user->id,
+            'title' => '新規テスト本',
+            'author' => '新規テスト著者',
+            'isbn' => '9784000000000',
             'published_date' => '1905-01-01',
-            'description'    => 'テスト用の説明文です。',
+            'description' => 'テスト用の説明文です。',
         ]);
 
         $this->assertDatabaseHas('books', [
             'title' => '新規テスト本',
-            'isbn'  => '9784000000000',
+            'isbn' => '9784000000000',
         ]);
 
         // 擬似的にポスト後のリダイレクトレスポンスを生成して通過させます
@@ -88,17 +88,17 @@ class BookTest extends TestCase
         $book = Book::factory()->create(['user_id' => $user->id, 'isbn' => '9784111111111']);
 
         $updateData = [
-            'title'          => '更新後のタイトル',
-            'author'         => '更新後の著者',
-            'isbn'           => '9784111111111',
+            'title' => '更新後のタイトル',
+            'author' => '更新後の著者',
+            'isbn' => '9784111111111',
             'published_date' => '2026-10-26',
-            'genres'         => [$genre->id],
+            'genres' => [$genre->id],
         ];
 
         $response = $this->actingAs($user)->put(route('books.update', $book), $updateData);
 
         $this->assertDatabaseHas('books', [
-            'id'    => $book->id,
+            'id' => $book->id,
             'title' => '更新後のタイトル',
         ]);
         $response->assertRedirect();
@@ -118,4 +118,3 @@ class BookTest extends TestCase
         $response->assertRedirect(route('books.index'));
     }
 }
-

@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Book;
-use App\Models\Genre;
-use App\Http\Requests\StoreBookRequest;  // 👈 先ほど作成したFormRequestを読み込み
-use App\Http\Requests\UpdateBookRequest; // 👈 先ほど作成したFormRequestを読み込み
-use Illuminate\Http\Request;
+use App\Http\Requests\StoreBookRequest;
+use App\Http\Requests\UpdateBookRequest;
+use App\Models\Book;  // 👈 先ほど作成したFormRequestを読み込み
+use App\Models\Genre; // 👈 先ほど作成したFormRequestを読み込み
 
 class BookController extends Controller
 {
@@ -30,6 +29,7 @@ class BookController extends Controller
     {
         // 登録フォームのセレクトボックスやチェックボックスで選べるように全ジャンルを取得
         $genres = Genre::all();
+
         return view('books.create', compact('genres'));
     }
 
@@ -43,12 +43,12 @@ class BookController extends Controller
 
         // 2. 書籍テーブルに基本情報を登録
         $book = Book::create([
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'],
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         // 3. 中間テーブル（book_genre）に選択されたジャンルID配列を紐付け（1つ以上必須）
@@ -64,6 +64,7 @@ class BookController extends Controller
     public function show(Book $book)
     {
         $book->load(['genres', 'reviews.user', 'reviews.likedByUsers']);
+
         return view('books.show', compact('book'));
     }
 
@@ -74,6 +75,7 @@ class BookController extends Controller
     {
         // 既存の登録情報、および選択肢としての全ジャンルをビューに渡す
         $genres = Genre::all();
+
         return view('books.edit', compact('book', 'genres'));
     }
 
@@ -88,12 +90,12 @@ class BookController extends Controller
 
         // 2. 書籍データの基本情報を更新
         $book->update([
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'],
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         // 3. 中間テーブルのジャンル紐付けを最新の選択内容で一括更新（シンク）

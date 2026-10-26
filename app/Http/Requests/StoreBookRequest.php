@@ -17,14 +17,14 @@ class StoreBookRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'          => ['required', 'string', 'max:255'], // 必須
-            'author'         => ['required', 'string', 'max:255'], // 必須
-            'isbn'           => ['required', 'digits:13', 'unique:books,isbn'], // 13桁の数値、かつ重複不可
+            'title' => ['required', 'string', 'max:255'], // 必須
+            'author' => ['required', 'string', 'max:255'], // 必須
+            'isbn' => ['required', 'digits:13', 'unique:books,isbn'], // 13桁の数値、かつ重複不可
             'published_date' => ['required', 'date'], // 有効な日付
-            'description'    => ['nullable', 'string', 'max:2000'],
-            'image_url'      => ['nullable', 'url'], // 指定された場合はURL形式
-            'genres'         => ['required', 'array', 'min:1'], // ジャンルは1つ以上選択されていること
-            'genres.*'       => ['integer', 'exists:genres,id'], // 選択されたジャンルがDBに存在すること
+            'description' => ['nullable', 'string', 'max:2000'],
+            'image_url' => ['nullable', 'url'], // 指定された場合はURL形式
+            'genres' => ['required', 'array', 'min:1'], // ジャンルは1つ以上選択されていること
+            'genres.*' => ['integer', 'exists:genres,id'], // 選択されたジャンルがDBに存在すること
         ];
     }
 
@@ -34,16 +34,16 @@ class StoreBookRequest extends FormRequest
     public function messages(): array
     {
         return [
-            'title.required'          => '書籍のタイトルを入力してください。',
-            'author.required'         => '著者名を入力してください。',
-            'isbn.required'           => 'ISBNを入力してください。',
-            'isbn.digits'             => 'ISBNは13桁の数値で入力してください。',
-            'isbn.unique'             => 'このISBNは既に登録されています。',
+            'title.required' => '書籍のタイトルを入力してください。',
+            'author.required' => '著者名を入力してください。',
+            'isbn.required' => 'ISBNを入力してください。',
+            'isbn.digits' => 'ISBNは13桁の数値で入力してください。',
+            'isbn.unique' => 'このISBNは既に登録されています。',
             'published_date.required' => '出版日を入力してください。',
-            'published_date.date'     => '出版日には有効な日付を入力してください。',
-            'image_url.url'           => '画像URLには正しいURL形式を入力してください。',
-            'genres.required'         => 'ジャンルは1つ以上選択してください。',
-            'genres.min'              => 'ジャンルは1つ以上選択してください。',
+            'published_date.date' => '出版日には有効な日付を入力してください。',
+            'image_url.url' => '画像URLには正しいURL形式を入力してください。',
+            'genres.required' => 'ジャンルは1つ以上選択してください。',
+            'genres.min' => 'ジャンルは1つ以上選択してください。',
         ];
     }
 }

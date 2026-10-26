@@ -34,7 +34,7 @@ class Review extends Model
         return $this->belongsTo(User::class);
     }
 
-        /**
+    /**
      * このレビューにいいねしたユーザー一覧（多対多）
      */
     public function likedByUsers(): BelongsToMany

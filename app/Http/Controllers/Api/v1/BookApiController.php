@@ -3,9 +3,10 @@
 namespace App\Http\Controllers\Api\v1;
 
 use App\Http\Controllers\Controller;
-use App\Models\Book;
 use App\Http\Requests\StoreBookRequest;
 use App\Http\Requests\UpdateBookRequest;
+use App\Models\Book;
+use App\Models\User;
 use Illuminate\Http\JsonResponse;
 
 class BookApiController extends Controller
@@ -23,9 +24,9 @@ class BookApiController extends Controller
             ->paginate(10);
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => '書籍一覧を正常に取得しました。',
-            'data'    => $books
+            'data' => $books,
         ], 200);
     }
 
@@ -38,9 +39,9 @@ class BookApiController extends Controller
         $book->load(['genres', 'reviews.user']);
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => '書籍詳細を正常に取得しました。',
-            'data'    => $book
+            'data' => $book,
         ], 200);
     }
 
@@ -52,25 +53,25 @@ class BookApiController extends Controller
         $validated = $request->validated();
 
         // 基礎段階では認証なしのため、便宜上システムの最初のユーザー(ID:1)を作成者としてセット
-        $userId = \App\Models\User::first()?->id ?? 1;
+        $userId = User::first()?->id ?? 1;
 
         $book = Book::create([
-            'user_id'        => $userId,
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'user_id' => $userId,
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'],
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         // ジャンルの中間テーブル紐付け
         $book->genres()->sync($validated['genres']);
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => '書籍を新規登録しました。',
-            'data'    => $book->load('genres')
+            'data' => $book->load('genres'),
         ], 201); // 201 Created
     }
 
@@ -82,20 +83,20 @@ class BookApiController extends Controller
         $validated = $request->validated();
 
         $book->update([
-            'title'          => $validated['title'],
-            'author'         => $validated['author'],
-            'isbn'           => $validated['isbn'],
+            'title' => $validated['title'],
+            'author' => $validated['author'],
+            'isbn' => $validated['isbn'],
             'published_date' => $validated['published_date'],
-            'description'    => $validated['description'] ?? null,
-            'image_url'      => $validated['image_url'] ?? null,
+            'description' => $validated['description'] ?? null,
+            'image_url' => $validated['image_url'] ?? null,
         ]);
 
         $book->genres()->sync($validated['genres']);
 
         return response()->json([
-            'status'  => 'success',
+            'status' => 'success',
             'message' => '書籍情報を更新しました。',
-            'data'    => $book->load('genres')
+            'data' => $book->load('genres'),
         ], 200);
     }
 
@@ -107,8 +108,8 @@ class BookApiController extends Controller
         $book->delete();
 
         return response()->json([
-            'status'  => 'success',
-            'message' => '書籍を削除しました。'
+            'status' => 'success',
+            'message' => '書籍を削除しました。',
         ], 200);
     }
 }
