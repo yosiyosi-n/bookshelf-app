@@ -3,9 +3,8 @@
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\FavoriteController;
 use App\Http\Controllers\ReviewController;
-use App\Http\Controllers\GenreController; // 👈 ★【追加】上部にこれを追記してください
-// まだ作成していないランキングのコントローラーはコメントアウトのままにしておきます
-// use App\Http\Controllers\RankingController;
+use App\Http\Controllers\GenreController;
+use App\Http\Controllers\RankingController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -15,12 +14,8 @@ Route::get('/', function () {
 // 1. ログインなしでも見られる書籍ルート（一覧）
 Route::get('/books', [BookController::class, 'index'])->name('books.index');
 
-// 2. リンクエラーを防ぐための暫定ダミールート
-Route::get('/ranking', function () { return 'ランキング画面（開発中）'; })->name('ranking.index');
-
-
-// ❌ 修正前（ここに並んでいたジャンル関連のダミールート群はすべて削除します）
-
+// 2. ランキングルート
+Route::get('/ranking', [RankingController::class, 'index'])->name('ranking.index');
 
 // 🔒 認証時（ログインユーザー）のみアクセス可能なグループ
 Route::middleware('auth')->group(function () {
